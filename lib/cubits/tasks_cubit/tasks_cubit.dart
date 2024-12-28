@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:meta/meta.dart';
 import 'package:tasks/constants.dart';
 import 'package:tasks/model/task_model.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tasks/constants.dart';
 import 'package:tasks/cubits/tasks_cubit/tasks_cubit.dart';
 import 'package:tasks/model/task_model.dart';
+import 'package:tasks/views/widgets/delete_all_btn.dart';
 import 'package:tasks/views/widgets/task_item.dart';
 
 class Tasks extends StatefulWidget {
@@ -35,6 +35,7 @@ class _TasksState extends State<Tasks> {
                   itemCount: tasks.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Dismissible(
+                      key: ValueKey(tasks[index]),
                       direction: DismissDirection.horizontal,
                       onDismissed: (_) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -44,7 +45,6 @@ class _TasksState extends State<Tasks> {
                         BlocProvider.of<TasksCubit>(context)
                             .deleteTask(tasks[index]);
                         BlocProvider.of<TasksCubit>(context).fetchAllTasks();
-                        setState(() {});
                       },
                       background: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -54,32 +54,17 @@ class _TasksState extends State<Tasks> {
                             color: Colors.grey,
                           ),
                           Text(
-                            "This task was deleted",
+                            "This task will be deleted",
                           )
                         ],
                       ),
-                      key: Key(index.toString()),
                       child: TaskItem(
                         task: tasks[index],
                       ),
                     );
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 82, right: 20),
-                  child: IconButton(
-                    icon: Icon(
-                      CupertinoIcons.trash,
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        deleteAllTasks(context);
-                        BlocProvider.of<TasksCubit>(context).fetchAllTasks();
-                      });
-                    },
-                  ),
-                ),
+                DeleteAllBtn()
               ]);
       },
     );
