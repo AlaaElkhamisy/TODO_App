@@ -39,7 +39,8 @@ class _TasksState extends State<Tasks> {
                       direction: DismissDirection.horizontal,
                       onDismissed: (_) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Task deleted Successfully"),
+                          content:
+                              Text("All tasks had been deleted successfully"),
                           backgroundColor: Colors.red,
                         ));
                         BlocProvider.of<TasksCubit>(context)
